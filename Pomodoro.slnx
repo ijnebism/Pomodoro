@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Pomodoro.vcxproj" Id="b3514ec7-974e-4437-a40a-5f7f24eaf85d" />
+</Solution>
