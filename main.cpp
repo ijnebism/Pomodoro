@@ -51,6 +51,11 @@ int main() {
 	//state changer
 	std::unique_ptr<State> currentState = std::make_unique<Timer>(font, clockTexture, settingsTexture, hideTexture, moveTexture);
 
+	sf::Vector2u desktopSize = sf::VideoMode::getDesktopMode().size;
+
+	window.setPosition(sf::Vector2i(desktopSize.x - window.getSize().x, 0));
+
+
 	while (window.isOpen()) {		
 		currentState->handleInput(window);
 		currentState->update(clock.restart().asSeconds(), window);
