@@ -1,9 +1,11 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "State.hpp"
+#include "Button.hpp"
 
 class Timer : public State {
 public:
-    Timer(const sf::Font& font);
+    Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture);
 
     void handleInput(sf::RenderWindow& window) override;
     void update(float dt) override;
@@ -11,4 +13,7 @@ public:
 
 private:
     sf::Text time;
+    Button settingsButton;
+	Button timerButton;
+	Button hideButton;
 };
