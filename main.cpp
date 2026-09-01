@@ -7,12 +7,13 @@
 
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode({300, 200}), "Pomodoro", sf::Style::None);
+	sf::RenderWindow window(sf::VideoMode({230, 200}), "Pomodoro", sf::Style::None);
 	sf::Clock clock;
 	sf::Font font;
 	sf::Texture clockTexture;
 	sf::Texture settingsTexture;
 	sf::Texture hideTexture;
+	sf::Texture moveTexture;
 
 	// Load assets
 	if (!font.openFromFile("./assets/ArchivoBlack-Regular.ttf")) {
@@ -31,6 +32,10 @@ int main() {
 		return -1;
 	}
 
+	if (!moveTexture.loadFromFile("./assets/move.png")) {
+		return -1;
+	}
+
 	// Transparent bg setup
 	HWND hwnd = static_cast<HWND>(window.getNativeHandle());
 
@@ -44,17 +49,11 @@ int main() {
 	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
 	//state changer
-	std::unique_ptr<State> currentState = std::make_unique<Timer>(font, clockTexture, settingsTexture, hideTexture);
+	std::unique_ptr<State> currentState = std::make_unique<Timer>(font, clockTexture, settingsTexture, hideTexture, moveTexture);
 
-	while (window.isOpen()) {
-		while (const std::optional event = window.pollEvent()) {
-			if (event ->is<sf::Event::Closed>()) {
-				window.close();
-			}
-		}
-		
+	while (window.isOpen()) {		
 		currentState->handleInput(window);
-		currentState->update(clock.restart().asSeconds());
+		currentState->update(clock.restart().asSeconds(), window);
 		currentState->render(window);
 
 	};

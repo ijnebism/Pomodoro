@@ -5,10 +5,10 @@
 
 class Timer : public State {
 public:
-    Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture);
+    Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture);
 
     void handleInput(sf::RenderWindow& window) override;
-    void update(float dt) override;
+    void update(float dt, sf::RenderWindow& window) override;
     void render(sf::RenderWindow& window) override;
 
 private:
@@ -16,4 +16,5 @@ private:
     Button settingsButton;
 	Button timerButton;
 	Button hideButton;
+	Button moveButton;
 };

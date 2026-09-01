@@ -11,7 +11,7 @@ class State {
 public:
 	virtual ~State() = default;
 	virtual void handleInput(sf::RenderWindow& window) = 0;
-	virtual void update(float dt) = 0;
+	virtual void update(float dt, sf::RenderWindow& window) = 0;
 	virtual void render(sf::RenderWindow& window) = 0;
 
 	StateType getNextState() const { return nextState; }

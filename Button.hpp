@@ -7,6 +7,7 @@ public:
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 	
 	void update(const sf::Vector2i& mousePos, bool isClicked);
+	void updateHover(const sf::Vector2i& mousePos);
 	bool isClicked(const sf::Vector2i& mousePos, sf::Mouse::Button targetButton, const sf::Event& event);
 	void render(sf::RenderWindow& window);
 

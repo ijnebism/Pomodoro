@@ -4,7 +4,7 @@ Button::Button(sf::Vector2f pos, const sf::Texture& iconTexture,
 	sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
 	: idle(idleColor), hover(hoverColor), active(activeColor), icon(iconTexture) {
 	shape.setPosition(pos);
-	shape.setSize(sf::Vector2f(50.f, 50.f));
+	shape.setSize(sf::Vector2f(30.f, 30.f));
 	shape.setFillColor(idle);
 
 	float padding = 8.f;
@@ -30,6 +30,16 @@ void Button::update(const sf::Vector2i& mousePos, bool isClicked) {
 			shape.setFillColor(active);
 		}
 	} else {
+		shape.setFillColor(idle);
+	}
+}
+
+void Button::updateHover(const sf::Vector2i& mousePos) {
+	sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+	if (shape.getGlobalBounds().contains(mousePosF)) {
+		shape.setFillColor(hover);
+	}
+	else {
 		shape.setFillColor(idle);
 	}
 }
