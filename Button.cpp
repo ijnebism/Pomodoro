@@ -36,12 +36,9 @@ void Button::update(const sf::Vector2i& mousePos, bool isClicked) {
 
 void Button::updateHover(const sf::Vector2i& mousePos) {
 	sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-	if (shape.getGlobalBounds().contains(mousePosF)) {
-		shape.setFillColor(hover);
-	}
-	else {
-		shape.setFillColor(idle);
-	}
+	bool currentlyHovered = shape.getGlobalBounds().contains(mousePosF);
+	shape.setFillColor(currentlyHovered ? hover : idle);
+	wasHovered = currentlyHovered;
 }
 
 void Button::render(sf::RenderWindow& window) {

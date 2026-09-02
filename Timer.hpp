@@ -11,6 +11,8 @@ public:
     void update(float dt, sf::RenderWindow& window) override;
     void render(sf::RenderWindow& window) override;
 
+	bool isMouseOverUI(const sf::Vector2i& mousePos) const override;
+
 private:
     sf::Text time;
     Button settingsButton;

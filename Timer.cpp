@@ -1,4 +1,5 @@
 #include "Timer.hpp"
+#include <iostream>
 
 Timer::Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture) :
 time(font),
@@ -21,6 +22,24 @@ void Timer::handleInput(sf::RenderWindow& window) {
 	while (const std::optional event = window.pollEvent()) {
 		if (event->is<sf::Event::Closed>()) {
 			window.close();
+		}
+
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+		if (settingsButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
+			std::cout << "Clicked";
+
+		}
+		if (timerButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
+			std::cout << "Clicked";
+
+		}
+		if (hideButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
+			std::cout << "Clicked";
+
+		}
+		if (moveButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
+			std::cout << "Clicked";
 		}
 	}
 }
@@ -46,4 +65,8 @@ void Timer::render(sf::RenderWindow& window) {
 	hideButton.render(window);
 	moveButton.render(window);
 	window.display();
+}
+
+bool Timer::isMouseOverUI(const sf::Vector2i& mousePos) const {
+	return settingsButton.isHovered() || timerButton.isHovered() || hideButton.isHovered() || moveButton.isHovered();
 }

@@ -17,6 +17,8 @@ public:
 	StateType getNextState() const { return nextState; }
 	void resetNextState() { nextState = StateType::None; }
 
+	virtual bool isMouseOverUI(const sf::Vector2i& mousePos) const = 0;
+
 protected:
 	StateType nextState = StateType::None;
 };

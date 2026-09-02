@@ -41,7 +41,7 @@ int main() {
 
 	SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_CAPTION);
 	LONG exStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-	SetWindowLong(hwnd, GWL_EXSTYLE, exStyle | WS_EX_LAYERED | WS_EX_TRANSPARENT);
+	SetWindowLong(hwnd, GWL_EXSTYLE, exStyle | WS_EX_LAYERED);
 
 	MARGINS margins = { -1 };
 	DwmExtendFrameIntoClientArea(hwnd, &margins);
@@ -56,10 +56,26 @@ int main() {
 	window.setPosition(sf::Vector2i(desktopSize.x - window.getSize().x, 0));
 
 
-	while (window.isOpen()) {		
+	bool wasClickThrough = false;
+
+	while (window.isOpen()) {
 		currentState->handleInput(window);
 		currentState->update(clock.restart().asSeconds(), window);
-		currentState->render(window);
 
-	};
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+		bool overInteractive = currentState->isMouseOverUI(mousePos);
+
+		if (overInteractive == wasClickThrough) {
+			LONG exStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+			if (overInteractive) {
+				SetWindowLong(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_TRANSPARENT);
+			}
+			else {
+				SetWindowLong(hwnd, GWL_EXSTYLE, exStyle | WS_EX_TRANSPARENT);
+			}
+			wasClickThrough = !overInteractive;
+		}
+
+		currentState->render(window);
+	}
 }

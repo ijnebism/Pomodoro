@@ -11,7 +11,10 @@ public:
 	bool isClicked(const sf::Vector2i& mousePos, sf::Mouse::Button targetButton, const sf::Event& event);
 	void render(sf::RenderWindow& window);
 
+	bool isHovered() const { return wasHovered; }
+
 private:
+	bool wasHovered = false;
 	sf::RectangleShape shape;
 	sf::Sprite icon;
 	sf::Color idle;
