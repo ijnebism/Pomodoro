@@ -19,4 +19,8 @@ private:
 	Button timerButton;
 	Button hideButton;
 	Button moveButton;
+
+    bool wasDragging = false;
+    sf::Vector2i dragStartScreenPos;
+    sf::Vector2i dragStartWindowPos;
 };

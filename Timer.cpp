@@ -15,6 +15,7 @@ moveButton(sf::Vector2f({ 75,5 }), moveTexture, sf::Color(128,128,128), sf::Colo
 	time.setOutlineThickness(2);
 	time.setFillColor(sf::Color::White);
 
+	timerButton.setActive(true);
 	
 }
 
@@ -30,13 +31,8 @@ void Timer::handleInput(sf::RenderWindow& window) {
 			std::cout << "Clicked";
 
 		}
-		if (timerButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
-			std::cout << "Clicked";
-
-		}
 		if (hideButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
-			std::cout << "Clicked";
-
+			hideButton.toggleActive();
 		}
 		if (moveButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
 			std::cout << "Clicked";
@@ -50,20 +46,44 @@ void Timer::update(float dt, sf::RenderWindow& window) {
 	timerButton.updateHover(mousePos);
 	hideButton.updateHover(mousePos);
 	moveButton.updateHover(mousePos);
+
+	moveButton.updatePressed(mousePos);
+
+	if (moveButton.getActive()) {
+		sf::Vector2i currentScreenPos = sf::Mouse::getPosition();
+		if (!wasDragging) {
+			dragStartScreenPos = currentScreenPos;
+			dragStartWindowPos = window.getPosition();
+			wasDragging = true;
+		}
+		else {
+			sf::Vector2i delta = currentScreenPos - dragStartScreenPos;
+			window.setPosition(dragStartWindowPos + delta);
+		}
+	}
+	else {
+		wasDragging = false;
+	}
 }
 
 void Timer::render(sf::RenderWindow& window) {
 	sf::Vector2u windowSize = window.getSize();
-
-	time.setOrigin({ time.getLocalBounds().size.x / 2.f, time.getLocalBounds().size.y / 2.f });
-	time.setPosition({windowSize.x / 2.f, windowSize.y / 4.f});
-
 	window.clear(sf::Color::Transparent);
-	window.draw(time);
-	settingsButton.render(window);
-	timerButton.render(window);
+
+
+	if (!hideButton.getActive()) {
+
+		time.setOrigin({ time.getLocalBounds().size.x / 2.f, time.getLocalBounds().size.y / 2.f });
+		time.setPosition({windowSize.x / 2.f, windowSize.y / 4.f});
+		window.draw(time);
+		settingsButton.render(window);
+		timerButton.render(window);
+		moveButton.render(window);
+
+	}
+
+	
 	hideButton.render(window);
-	moveButton.render(window);
 	window.display();
 }
 
