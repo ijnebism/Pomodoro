@@ -28,14 +28,11 @@ void Timer::handleInput(sf::RenderWindow& window) {
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
 		if (settingsButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
-			std::cout << "Clicked";
+			nextState = StateType::Settings;
 
 		}
 		if (hideButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
 			hideButton.toggleActive();
-		}
-		if (moveButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
-			std::cout << "Clicked";
 		}
 	}
 }
@@ -81,7 +78,6 @@ void Timer::render(sf::RenderWindow& window) {
 		moveButton.render(window);
 
 	}
-
 	
 	hideButton.render(window);
 	window.display();

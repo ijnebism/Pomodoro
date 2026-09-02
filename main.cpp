@@ -2,6 +2,7 @@
 #include <dwmapi.h>
 #include "State.hpp"
 #include "Timer.hpp"
+#include "Settings.hpp"
 
 #pragma comment(lib, "dwmapi.lib")
 
@@ -59,6 +60,22 @@ int main() {
 	bool wasClickThrough = false;
 
 	while (window.isOpen()) {
+		if (currentState->getNextState() != StateType::None) {
+			StateType nextState = currentState->getNextState();
+			currentState->resetNextState();
+			switch (nextState) {
+			case StateType::Timer:
+				currentState = std::make_unique<Timer>(font, clockTexture, settingsTexture, hideTexture, moveTexture);
+				break;
+			case StateType::Settings:
+				currentState = std::make_unique<Settings>(font, clockTexture, settingsTexture, hideTexture, moveTexture);
+				break;
+			default:
+				break;
+			}
+		}
+
+
 		currentState->handleInput(window);
 		currentState->update(clock.restart().asSeconds(), window);
 
