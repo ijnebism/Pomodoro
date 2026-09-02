@@ -50,10 +50,15 @@ void Button::updateHover(const sf::Vector2i& mousePos) {
 }
 
 void Button::updatePressed(const sf::Vector2i& mousePos) {
-	sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-	bool overButton = shape.getGlobalBounds().contains(mousePosF);
 	bool pressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
-	isActive = overButton && pressed;
+	if (!isActive) {
+		sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+		bool overButton = shape.getGlobalBounds().contains(mousePosF);
+		isActive = overButton && pressed;
+	}
+	else {
+		isActive = pressed;
+	}
 }
 
 void Button::render(sf::RenderWindow& window) {
