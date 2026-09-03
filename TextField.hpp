@@ -10,6 +10,8 @@ public:
 
 	int getValue() const;
 
+	bool isHovered(const sf::Vector2i& mousePos) const;
+
 private:
 	sf::RectangleShape shape;
 	sf::Text text;

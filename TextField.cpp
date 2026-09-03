@@ -13,6 +13,11 @@ TextField::TextField(const sf::Font& font, sf::Vector2f position, sf::Vector2f s
 	text.setPosition({ position.x + 5.f, position.y + (size.y - text.getCharacterSize()) / 2.f });
 }
 
+bool TextField::isHovered(const sf::Vector2i& mousePos) const {
+	sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+	return(shape.getGlobalBounds().contains(mousePosF));
+}
+
 void TextField::handleInput(const sf::Event& event, sf::RenderWindow& window) {
 	if (event.is<sf::Event::MouseButtonReleased>()) {
 		sf::Vector2f mousePosF(static_cast<float>(sf::Mouse::getPosition(window).x), static_cast<float>(sf::Mouse::getPosition(window).y));
