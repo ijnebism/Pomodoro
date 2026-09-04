@@ -65,9 +65,13 @@ int main() {
 			currentState->resetNextState();
 			switch (nextState) {
 			case StateType::Timer:
+				window.setSize(sf::Vector2u(230, 200));
+				window.setView(sf::View(sf::FloatRect({ 0, 0 }, {230, 200})));
 				currentState = std::make_unique<Timer>(font, clockTexture, settingsTexture, hideTexture, moveTexture);
 				break;
 			case StateType::Settings:
+				window.setSize(sf::Vector2u(230, 300));
+				window.setView(sf::View(sf::FloatRect({ 0, 0 }, {230, 300})));
 				currentState = std::make_unique<Settings>(font, clockTexture, settingsTexture, hideTexture, moveTexture);
 				break;
 			default:
