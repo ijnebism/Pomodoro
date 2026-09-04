@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "State.hpp"
 #include "Button.hpp"
+#include "TextField.hpp"
 
 class Settings : public State {
 public:
@@ -18,6 +19,10 @@ private:
     Button timerButton;
     Button hideButton;
     Button moveButton;
+    TextField workduration;
+    TextField breakduration;
+	sf::Text workLabel;
+	sf::Text breakLabel;
 
     bool wasDragging = false;
     sf::Vector2i dragStartScreenPos;

@@ -5,10 +5,29 @@ Settings::Settings(const sf::Font& font, const sf::Texture& clockTexture, const 
 	settingsButton(sf::Vector2f({ 125,5 }), settingsTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green),
 	timerButton(sf::Vector2f({ 25,5 }), clockTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green),
 	hideButton(sf::Vector2f({ 175,5 }), hideTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green),
-	moveButton(sf::Vector2f({ 75,5 }), moveTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green)
+	moveButton(sf::Vector2f({ 75,5 }), moveTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green),
+	workduration(font, sf::Vector2f({ 150, 50 }), sf::Vector2f({ 50, 30 })),
+	breakduration(font, sf::Vector2f({ 150, 90 }), sf::Vector2f({ 50, 30 })),
+	workLabel(font),
+	breakLabel(font)
 {
-
 	settingsButton.setActive(true);
+
+	workLabel.setString("Work  (min):");
+	workLabel.setCharacterSize(16);
+	workLabel.setFillColor(sf::Color::White);
+	workLabel.setOutlineColor(sf::Color::Black);
+	workLabel.setOutlineThickness(1);
+	workLabel.setPosition({26, 54});
+
+
+	breakLabel.setString("Break (min):");
+	breakLabel.setCharacterSize(16);
+	breakLabel.setFillColor(sf::Color::White);
+	breakLabel.setOutlineColor(sf::Color::Black);
+	breakLabel.setOutlineThickness(1);
+	breakLabel.setPosition({ 26, 94 });
+
 
 }
 
@@ -17,16 +36,15 @@ void Settings::handleInput(sf::RenderWindow& window) {
 		if (event->is<sf::Event::Closed>()) {
 			window.close();
 		}
-
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-
 		if (timerButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
 			nextState = StateType::Timer;
-
 		}
 		if (hideButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
 			hideButton.toggleActive();
 		}
+		workduration.handleInput(*event, window);
+		breakduration.handleInput(*event, window);
 	}
 }
 
@@ -66,6 +84,10 @@ void Settings::render(sf::RenderWindow& window) {
 		settingsButton.render(window);
 		timerButton.render(window);
 		moveButton.render(window);
+		workduration.render(window);
+		breakduration.render(window);
+		window.draw(workLabel);
+		window.draw(breakLabel);
 
 	}
 
@@ -74,5 +96,6 @@ void Settings::render(sf::RenderWindow& window) {
 }
 
 bool Settings::isMouseOverUI(const sf::Vector2i& mousePos) const {
-	return settingsButton.isHovered() || timerButton.isHovered() || hideButton.isHovered() || moveButton.isHovered();
+	return settingsButton.isHovered() || timerButton.isHovered() || hideButton.isHovered() || moveButton.isHovered() || 
+		workduration.isHovered(mousePos) || breakduration.isHovered(mousePos);
 }
