@@ -3,6 +3,7 @@
 #include "State.hpp"
 #include "Button.hpp"
 #include "TextField.hpp"
+#include "Slider.hpp"
 
 class Settings : public State {
 public:
@@ -32,6 +33,11 @@ private:
 	Button breakToggle;
 	sf::Text workToggleLabel;
 	sf::Text breakToggleLabel;
+
+    // Audio
+    sf::Text audioLabel;
+    sf::Text volumeLabel;
+    Slider audioSlider;
 
 	// Dragging
     bool wasDragging = false;

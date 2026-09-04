@@ -154,12 +154,14 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Slider.cpp" />
     <ClCompile Include="TextField.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="Settings.hpp" />
+    <ClInclude Include="Slider.hpp" />
     <ClInclude Include="State.hpp" />
     <ClInclude Include="TextField.hpp" />
     <ClInclude Include="Timer.hpp" />

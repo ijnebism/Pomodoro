@@ -13,7 +13,10 @@ Settings::Settings(const sf::Font& font, const sf::Texture& clockTexture, const 
 	workToggle(sf::Vector2f({ 170, 130 }), sf::Color::Red, sf::Color(200, 60, 60), sf::Color::Green),
 	breakToggle(sf::Vector2f({ 170, 165 }), sf::Color::Red, sf::Color(200, 60, 60), sf::Color::Green),
 	workToggleLabel(font),
-	breakToggleLabel(font)
+	breakToggleLabel(font),
+	audioLabel(font),
+	volumeLabel(font),
+	audioSlider(sf::Vector2f({ 30, 230 }), sf::Vector2f({ 110, 14 }), 0.f, 100.f, 100.f)
 {
 	settingsButton.setActive(true);
 
@@ -46,6 +49,20 @@ Settings::Settings(const sf::Font& font, const sf::Texture& clockTexture, const 
 	breakToggleLabel.setOutlineThickness(1);
 	breakToggleLabel.setPosition({ 26, 169 });
 
+	audioLabel.setString("Audio Volume");
+	audioLabel.setCharacterSize(16);
+	audioLabel.setFillColor(sf::Color::White);
+	audioLabel.setOutlineColor(sf::Color::Black);
+	audioLabel.setOutlineThickness(1);
+	audioLabel.setPosition({ 26, 200 });
+
+	volumeLabel.setString("100%");
+	volumeLabel.setCharacterSize(16);
+	volumeLabel.setFillColor(sf::Color::White);
+	volumeLabel.setOutlineColor(sf::Color::Black);
+	volumeLabel.setOutlineThickness(1);
+	volumeLabel.setPosition({ 150, 223 });
+
 }
 
 void Settings::handleInput(sf::RenderWindow& window) {
@@ -70,6 +87,7 @@ void Settings::handleInput(sf::RenderWindow& window) {
 
 		workduration.handleInput(*event, window);
 		breakduration.handleInput(*event, window);
+		audioSlider.handleInput(*event, window);
 
 	}
 }
@@ -82,8 +100,10 @@ void Settings::update(float dt, sf::RenderWindow& window) {
 	moveButton.updateHover(mousePos);
 	workToggle.updateHover(mousePos);
 	breakToggle.updateHover(mousePos);
-
+	audioSlider.update(mousePos);
+	
 	moveButton.updatePressed(mousePos);
+	volumeLabel.setString(std::to_string(static_cast<int>(audioSlider.getValue())) + "%");
 
 	if (moveButton.getActive()) {
 		sf::Vector2i currentScreenPos = sf::Mouse::getPosition();
@@ -122,6 +142,9 @@ void Settings::render(sf::RenderWindow& window) {
 		breakToggle.render(window);
 		window.draw(workToggleLabel);
 		window.draw(breakToggleLabel);
+		window.draw(audioLabel);
+		window.draw(volumeLabel);
+		audioSlider.render(window);
 	}
 
 	hideButton.render(window);
@@ -130,5 +153,6 @@ void Settings::render(sf::RenderWindow& window) {
 
 bool Settings::isMouseOverUI(const sf::Vector2i& mousePos) const {
 	return settingsButton.isHovered() || timerButton.isHovered() || hideButton.isHovered() || moveButton.isHovered() || 
-		workduration.isHovered(mousePos) || breakduration.isHovered(mousePos) || workToggle.isHovered() || breakToggle.isHovered();
+		workduration.isHovered(mousePos) || breakduration.isHovered(mousePos) || workToggle.isHovered() || breakToggle.isHovered() ||
+		audioSlider.isHovered(mousePos);
 }
