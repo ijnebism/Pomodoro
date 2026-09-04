@@ -7,13 +7,17 @@ Settings::Settings(const sf::Font& font, const sf::Texture& clockTexture, const 
 	hideButton(sf::Vector2f({ 175,5 }), hideTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green),
 	moveButton(sf::Vector2f({ 75,5 }), moveTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green),
 	workduration(font, sf::Vector2f({ 150, 50 }), sf::Vector2f({ 50, 30 })),
-	breakduration(font, sf::Vector2f({ 150, 90 }), sf::Vector2f({ 50, 30 })),
+	breakduration(font, sf::Vector2f({ 150, 85 }), sf::Vector2f({ 50, 30 })),
 	workLabel(font),
-	breakLabel(font)
+	breakLabel(font),
+	workToggle(sf::Vector2f({ 170, 130 }), sf::Color::Red, sf::Color(200, 60, 60), sf::Color::Green),
+	breakToggle(sf::Vector2f({ 170, 165 }), sf::Color::Red, sf::Color(200, 60, 60), sf::Color::Green),
+	workToggleLabel(font),
+	breakToggleLabel(font)
 {
 	settingsButton.setActive(true);
 
-	workLabel.setString("Work  (min):");
+	workLabel.setString("Work  (min)");
 	workLabel.setCharacterSize(16);
 	workLabel.setFillColor(sf::Color::White);
 	workLabel.setOutlineColor(sf::Color::Black);
@@ -21,13 +25,26 @@ Settings::Settings(const sf::Font& font, const sf::Texture& clockTexture, const 
 	workLabel.setPosition({26, 54});
 
 
-	breakLabel.setString("Break (min):");
+	breakLabel.setString("Break (min)");
 	breakLabel.setCharacterSize(16);
 	breakLabel.setFillColor(sf::Color::White);
 	breakLabel.setOutlineColor(sf::Color::Black);
 	breakLabel.setOutlineThickness(1);
-	breakLabel.setPosition({ 26, 94 });
+	breakLabel.setPosition({ 26, 89 });
 
+	workToggleLabel.setString("AutoStart  Work");
+	workToggleLabel.setCharacterSize(16);
+	workToggleLabel.setFillColor(sf::Color::White);
+	workToggleLabel.setOutlineColor(sf::Color::Black);
+	workToggleLabel.setOutlineThickness(1);
+	workToggleLabel.setPosition({ 26, 134 });
+
+	breakToggleLabel.setString("AutoStart Break");
+	breakToggleLabel.setCharacterSize(16);
+	breakToggleLabel.setFillColor(sf::Color::White);
+	breakToggleLabel.setOutlineColor(sf::Color::Black);
+	breakToggleLabel.setOutlineThickness(1);
+	breakToggleLabel.setPosition({ 26, 169 });
 
 }
 
@@ -43,8 +60,17 @@ void Settings::handleInput(sf::RenderWindow& window) {
 		if (hideButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
 			hideButton.toggleActive();
 		}
+
+		if (breakToggle.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
+			breakToggle.toggleActive();
+		}
+		if (workToggle.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
+			workToggle.toggleActive();
+		}
+
 		workduration.handleInput(*event, window);
 		breakduration.handleInput(*event, window);
+
 	}
 }
 
@@ -54,6 +80,8 @@ void Settings::update(float dt, sf::RenderWindow& window) {
 	timerButton.updateHover(mousePos);
 	hideButton.updateHover(mousePos);
 	moveButton.updateHover(mousePos);
+	workToggle.updateHover(mousePos);
+	breakToggle.updateHover(mousePos);
 
 	moveButton.updatePressed(mousePos);
 
@@ -88,7 +116,12 @@ void Settings::render(sf::RenderWindow& window) {
 		breakduration.render(window);
 		window.draw(workLabel);
 		window.draw(breakLabel);
-
+		window.draw(workToggleLabel);
+		window.draw(breakToggleLabel);
+		workToggle.render(window);
+		breakToggle.render(window);
+		window.draw(workToggleLabel);
+		window.draw(breakToggleLabel);
 	}
 
 	hideButton.render(window);
@@ -97,5 +130,5 @@ void Settings::render(sf::RenderWindow& window) {
 
 bool Settings::isMouseOverUI(const sf::Vector2i& mousePos) const {
 	return settingsButton.isHovered() || timerButton.isHovered() || hideButton.isHovered() || moveButton.isHovered() || 
-		workduration.isHovered(mousePos) || breakduration.isHovered(mousePos);
+		workduration.isHovered(mousePos) || breakduration.isHovered(mousePos) || workToggle.isHovered() || breakToggle.isHovered();
 }

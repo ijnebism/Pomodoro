@@ -6,6 +6,8 @@ public:
 	Button(sf::Vector2f pos, const sf::Texture& iconTexture, 
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 	
+	Button(sf::Vector2f pos, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
+
 	void update(const sf::Vector2i& mousePos, bool isClicked);
 	void updateHover(const sf::Vector2i& mousePos);
 	void updatePressed(const sf::Vector2i& mousePos);

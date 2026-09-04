@@ -22,6 +22,25 @@ Button::Button(sf::Vector2f pos, const sf::Texture& iconTexture,
 
 };
 
+// Empty texture for buttons without icons
+static const sf::Texture& blankTexture() {
+	static sf::Texture tex = [] {
+		sf::Texture t;
+		t.resize({ 1, 1 });
+		std::uint8_t pixel[4] = { 0, 0, 0, 0 }; 
+		t.update(pixel);
+		return t;
+		}();
+	return tex;
+}
+
+Button::Button(sf::Vector2f pos, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
+	: idle(idleColor), hover(hoverColor), active(activeColor), icon(blankTexture()) {
+	shape.setPosition(pos);
+	shape.setSize(sf::Vector2f(30.f, 30.f));
+	shape.setFillColor(idle);
+};
+
 void Button::update(const sf::Vector2i& mousePos, bool isClicked) {
 	sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
 	if (shape.getGlobalBounds().contains(mousePosF)) {

@@ -15,15 +15,25 @@ public:
     bool isMouseOverUI(const sf::Vector2i& mousePos) const override;
 
 private:
+	//Header Buttons
     Button settingsButton;
     Button timerButton;
     Button hideButton;
     Button moveButton;
+
+    // Timers
     TextField workduration;
     TextField breakduration;
 	sf::Text workLabel;
 	sf::Text breakLabel;
 
+    // Toggle Starts
+	Button workToggle;
+	Button breakToggle;
+	sf::Text workToggleLabel;
+	sf::Text breakToggleLabel;
+
+	// Dragging
     bool wasDragging = false;
     sf::Vector2i dragStartScreenPos;
     sf::Vector2i dragStartWindowPos;
