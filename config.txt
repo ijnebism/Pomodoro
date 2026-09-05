@@ -1,0 +1,5 @@
+workDuration=23
+breakDuration=12
+autoStartWork=0
+autoStartBreak=1
+audioVolume=75.4545

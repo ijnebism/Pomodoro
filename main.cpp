@@ -17,6 +17,9 @@ int main() {
 	sf::Texture hideTexture;
 	sf::Texture moveTexture;
 
+	SettingsData settingsData;
+	settingsData.loadFromFile();
+
 	// Load assets
 	if (!font.openFromFile("./assets/ArchivoBlack-Regular.ttf")) {
 		return -1;
@@ -58,8 +61,9 @@ int main() {
 
 	bool wasClickThrough = false;
 
-	Timer timerstate(font, clockTexture, settingsTexture, hideTexture, moveTexture);
-	Settings settingsstate(font, clockTexture, settingsTexture, hideTexture, moveTexture);
+	// State management
+	Timer timerstate(font, clockTexture, settingsTexture, hideTexture, moveTexture ,settingsData);
+	Settings settingsstate(font, clockTexture, settingsTexture, hideTexture, moveTexture, settingsData);
 
 	State* currentState = &timerstate;
 
