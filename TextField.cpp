@@ -18,6 +18,11 @@ bool TextField::isHovered(const sf::Vector2i& mousePos) const {
 	return(shape.getGlobalBounds().contains(mousePosF));
 }
 
+void  TextField::setValue(int value) {
+	buffer = std::to_string(value);
+	text.setString(buffer);
+}
+
 void TextField::handleInput(const sf::Event& event, sf::RenderWindow& window) {
 	if (event.is<sf::Event::MouseButtonReleased>()) {
 		sf::Vector2f mousePosF(static_cast<float>(sf::Mouse::getPosition(window).x), static_cast<float>(sf::Mouse::getPosition(window).y));

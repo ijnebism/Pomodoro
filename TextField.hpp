@@ -9,6 +9,7 @@ public:
 	void render(sf::RenderWindow& window);
 
 	int getValue() const;
+	void setValue(int value);
 
 	bool isHovered(const sf::Vector2i& mousePos) const;
 
