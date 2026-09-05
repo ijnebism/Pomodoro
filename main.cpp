@@ -3,6 +3,7 @@
 #include "State.hpp"
 #include "Timer.hpp"
 #include "Settings.hpp"
+#include "SettingsData.hpp"
 
 #pragma comment(lib, "dwmapi.lib")
 
@@ -49,8 +50,6 @@ int main() {
 
 	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
-	//state changer
-	std::unique_ptr<State> currentState = std::make_unique<Timer>(font, clockTexture, settingsTexture, hideTexture, moveTexture);
 
 	sf::Vector2u desktopSize = sf::VideoMode::getDesktopMode().size;
 
@@ -58,6 +57,11 @@ int main() {
 
 
 	bool wasClickThrough = false;
+
+	Timer timerstate(font, clockTexture, settingsTexture, hideTexture, moveTexture);
+	Settings settingsstate(font, clockTexture, settingsTexture, hideTexture, moveTexture);
+
+	State* currentState = &timerstate;
 
 	while (window.isOpen()) {
 		if (currentState->getNextState() != StateType::None) {
@@ -67,12 +71,12 @@ int main() {
 			case StateType::Timer:
 				window.setSize(sf::Vector2u(230, 200));
 				window.setView(sf::View(sf::FloatRect({ 0, 0 }, {230, 200})));
-				currentState = std::make_unique<Timer>(font, clockTexture, settingsTexture, hideTexture, moveTexture);
+				currentState = &timerstate;
 				break;
 			case StateType::Settings:
 				window.setSize(sf::Vector2u(230, 300));
 				window.setView(sf::View(sf::FloatRect({ 0, 0 }, {230, 300})));
-				currentState = std::make_unique<Settings>(font, clockTexture, settingsTexture, hideTexture, moveTexture);
+				currentState = &settingsstate;
 				break;
 			default:
 				break;
