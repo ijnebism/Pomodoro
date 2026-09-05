@@ -1,7 +1,7 @@
 #include "Settings.hpp"
 #include <iostream>
 
-Settings::Settings(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture) :
+Settings::Settings(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture, const SettingsData& settingsData) :
 	settingsButton(sf::Vector2f({ 125,5 }), settingsTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green),
 	timerButton(sf::Vector2f({ 25,5 }), clockTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green),
 	hideButton(sf::Vector2f({ 175,5 }), hideTexture, sf::Color(128, 128, 128), sf::Color(90, 90, 90), sf::Color::Green),
@@ -16,7 +16,8 @@ Settings::Settings(const sf::Font& font, const sf::Texture& clockTexture, const 
 	breakToggleLabel(font),
 	audioLabel(font),
 	volumeLabel(font),
-	audioSlider(sf::Vector2f({ 30, 230 }), sf::Vector2f({ 110, 14 }), 0.f, 100.f, 100.f)
+	audioSlider(sf::Vector2f({ 30, 230 }), sf::Vector2f({ 110, 14 }), 0.f, 100.f, 100.f),
+	settingsData(settingsData)
 {
 	settingsButton.setActive(true);
 
@@ -63,6 +64,11 @@ Settings::Settings(const sf::Font& font, const sf::Texture& clockTexture, const 
 	volumeLabel.setOutlineThickness(1);
 	volumeLabel.setPosition({ 150, 223 });
 
+	workduration.setValue(settingsData.workDuration);
+	breakduration.setValue(settingsData.breakDuration);
+	workToggle.setActive(settingsData.autoStartWork);
+	breakToggle.setActive(settingsData.autoStartBreak);
+	audioSlider.setValue(settingsData.audioVolume);
 }
 
 void Settings::handleInput(sf::RenderWindow& window) {
@@ -120,15 +126,20 @@ void Settings::update(float dt, sf::RenderWindow& window) {
 	else {
 		wasDragging = false;
 	}
+
+	settingsData.workDuration = workduration.getValue();
+	settingsData.breakDuration = breakduration.getValue();
+	settingsData.autoStartWork = workToggle.getActive();
+	settingsData.autoStartBreak = breakToggle.getActive();
+	settingsData.audioVolume = audioSlider.getValue();
+	settingsData.saveToFile();
 }
 
 void Settings::render(sf::RenderWindow& window) {
 	sf::Vector2u windowSize = window.getSize();
 	window.clear(sf::Color::Transparent);
 
-
 	if (!hideButton.getActive()) {
-
 		settingsButton.render(window);
 		timerButton.render(window);
 		moveButton.render(window);

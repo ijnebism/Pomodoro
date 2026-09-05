@@ -4,10 +4,11 @@
 #include "Button.hpp"
 #include "TextField.hpp"
 #include "Slider.hpp"
+#include "SettingsData.hpp"
 
 class Settings : public State {
 public:
-    Settings(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture);
+    Settings(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture, const SettingsData& settingsData);
 
     void handleInput(sf::RenderWindow& window) override;
     void update(float dt, sf::RenderWindow& window) override;
@@ -43,4 +44,6 @@ private:
     bool wasDragging = false;
     sf::Vector2i dragStartScreenPos;
     sf::Vector2i dragStartWindowPos;
+
+	SettingsData settingsData;
 };

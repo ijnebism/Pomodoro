@@ -1,7 +1,7 @@
 #include "Timer.hpp"
 #include <iostream>
 
-Timer::Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture) :
+Timer::Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture, const SettingsData& settingsData) :
 time(font),
 settingsButton(sf::Vector2f({125,5}), settingsTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
 timerButton(sf::Vector2f({ 25,5 }), clockTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
