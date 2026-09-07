@@ -163,12 +163,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Settings.hpp" />
     <ClInclude Include="SettingsData.hpp" />
     <ClInclude Include="Slider.hpp" />
     <ClInclude Include="State.hpp" />
     <ClInclude Include="TextField.hpp" />
     <ClInclude Include="Timer.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Pomodoro.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
