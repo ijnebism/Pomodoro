@@ -4,6 +4,11 @@
 #include "Button.hpp"
 #include "SettingsData.hpp" 
 
+enum TimerPhase {
+	Work,
+	Break
+};
+
 class Timer : public State {
 public:
     Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture, const SettingsData& settingsData, const sf::Texture& startTexture, const sf::Texture& resetTexture);
@@ -23,6 +28,9 @@ private:
 	Button moveButton;
     Button startButton;
 	Button resetButton;
+
+	TimerPhase currentPhase = TimerPhase::Work;
+	void switchPhase();
 
     int secondsRemaining;
     float accumulatedTime = 0.f;

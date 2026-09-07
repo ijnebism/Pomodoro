@@ -9,7 +9,8 @@ timerButton(sf::Vector2f({ 25,5 }), clockTexture, sf::Color(128,128,128), sf::Co
 hideButton(sf::Vector2f({175,5 }), hideTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
 moveButton(sf::Vector2f({ 75,5 }), moveTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
 startButton(sf::Vector2f({ 75,110 }), startTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
-resetButton(sf::Vector2f({ 125,110 }), resetTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green)
+resetButton(sf::Vector2f({ 125,110 }), resetTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
+settingsData(settingsData)
 {
 
 	secondsRemaining = settingsData.workDuration * 60;
@@ -94,8 +95,16 @@ void Timer::update(float dt, sf::RenderWindow& window) {
 				(secondsRemaining % 60 < 10 ? "0" : "") + std::to_string(secondsRemaining % 60));
 
 			if (secondsRemaining <= 0) {
-				secondsRemaining = 0;
-				startButton.setActive(false);
+				switchPhase();
+				if (settingsData.autoStartWork && currentPhase == TimerPhase::Work) {
+					startButton.setActive(true);
+				}
+				else if (settingsData.autoStartBreak && currentPhase == TimerPhase::Break) {
+					startButton.setActive(true);
+				}
+				else {
+					startButton.setActive(false);
+				}
 			}
 		}
 	}
@@ -104,6 +113,23 @@ void Timer::update(float dt, sf::RenderWindow& window) {
 void Timer::resetState() {
 	startButton.setActive(false);
 	secondsRemaining = settingsData.workDuration * 60;
+	currentPhase = TimerPhase::Work;
+	status.setString("Work");
+	time.setString(std::to_string(secondsRemaining / 60) + ":" +
+		(secondsRemaining % 60 < 10 ? "0" : "") + std::to_string(secondsRemaining % 60));
+}
+
+void Timer::switchPhase() {
+	if (currentPhase == TimerPhase::Work) {
+		currentPhase = TimerPhase::Break;
+		secondsRemaining = settingsData.breakDuration * 60;
+		status.setString("Break");
+	}
+	else if (currentPhase == TimerPhase::Break) {
+		currentPhase = TimerPhase::Work;
+		secondsRemaining = settingsData.workDuration * 60;
+		status.setString("Pomodoro");
+	}
 	time.setString(std::to_string(secondsRemaining / 60) + ":" +
 		(secondsRemaining % 60 < 10 ? "0" : "") + std::to_string(secondsRemaining % 60));
 }
