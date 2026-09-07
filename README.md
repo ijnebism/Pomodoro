@@ -8,6 +8,7 @@ A lightweight, always-on-top desktop Pomodoro timer built with C++ and SFML, fea
 - [Features](#features)
 - [Requirements](#requirements)
     - [Installation](#installation)
+- [Attributions](#attributions)
 
 ## Overview
 Pomodoro is a minimal desktop widget that sits on top of your other windows and helps you run work/break cycles using the Pomodoro technique. It's built as a frameless, transparent overlay that only intercepts mouse clicks over its own UI, so it stays out of your way otherwise. It includes a Timer screen for running the countdown and a Settings screen for configuring work/break durations, autostart behavior, and alert volume.
@@ -42,3 +43,15 @@ Pomodoro is a minimal desktop widget that sits on top of your other windows and 
     cmake --build build
 ```
 4. Run the executable from the build output directory. The app will appear as a small overlay in the top-right corner of your screen.
+
+## Attributions
+Icons used in this app are from [Flaticon](https://www.flaticon.com):
+- Clock icon by [Those Icons](https://www.flaticon.com/free-icon/clock_2088617)
+- Settings icon by [Freepik](https://www.flaticon.com/download/icon/3524659)
+- Hidden/eye icon by [sonnycandra](https://www.flaticon.com/free-icon/hidden_10812267)
+- Move icon by [Andrean Prabowo](https://www.flaticon.com/free-icon/move_3771730)
+- Reset/undo icon by [KP ARTS](https://www.flaticon.com/free-icon/undo_8669717)
+- Play icon by [Freepik](https://www.flaticon.com/free-icon/play-button-arrowhead_27223)
+- Pomodoro (tomato) icon by [Park Jisun](https://www.flaticon.com/free-icon/fruit_15625362)
+
+Alert sound from [Mixkit](https://mixkit.co/) — https://assets.mixkit.co/active_storage/sfx/993/993.wav
