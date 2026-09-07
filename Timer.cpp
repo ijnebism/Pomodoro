@@ -1,7 +1,7 @@
 #include "Timer.hpp"
 #include <iostream>
 
-Timer::Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture, const SettingsData& settingsData, const sf::Texture& startTexture, const sf::Texture& resetTexture) :
+Timer::Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture, const SettingsData& settingsData, const sf::Texture& startTexture, const sf::Texture& resetTexture, const sf::Sound& alarmSound) :
 time(font),
 status(font),
 settingsButton(sf::Vector2f({125,5}), settingsTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
@@ -10,7 +10,8 @@ hideButton(sf::Vector2f({175,5 }), hideTexture, sf::Color(128,128,128), sf::Colo
 moveButton(sf::Vector2f({ 75,5 }), moveTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
 startButton(sf::Vector2f({ 75,110 }), startTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
 resetButton(sf::Vector2f({ 125,110 }), resetTexture, sf::Color(128,128,128), sf::Color(90, 90, 90), sf::Color::Green),
-settingsData(settingsData)
+settingsData(settingsData),
+alarmSound(alarmSound)
 {
 
 	secondsRemaining = settingsData.workDuration * 60;
@@ -28,8 +29,6 @@ settingsData(settingsData)
 	status.setOutlineColor(sf::Color::Black);
 	status.setOutlineThickness(1);
 	status.setFillColor(sf::Color::White);
-
-	
 	
 }
 
@@ -95,6 +94,8 @@ void Timer::update(float dt, sf::RenderWindow& window) {
 				(secondsRemaining % 60 < 10 ? "0" : "") + std::to_string(secondsRemaining % 60));
 
 			if (secondsRemaining <= 0) {
+				alarmSound.setVolume(settingsData.audioVolume);
+				alarmSound.play();
 				switchPhase();
 				if (settingsData.autoStartWork && currentPhase == TimerPhase::Work) {
 					startButton.setActive(true);

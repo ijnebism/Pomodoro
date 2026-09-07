@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <dwmapi.h>
 #include "State.hpp"
 #include "Timer.hpp"
@@ -18,6 +19,7 @@ int main() {
 	sf::Texture moveTexture;
 	sf::Texture startTexture;
 	sf::Texture resetTexture;
+	sf::SoundBuffer alarmBuffer;
 
 	SettingsData settingsData;
 	settingsData.loadFromFile();
@@ -51,6 +53,11 @@ int main() {
 		return -1;
 	}
 
+	if (!alarmBuffer.loadFromFile("./assets/alarm.wav")) {
+		return -1;
+	}
+	sf::Sound alarmSound(alarmBuffer);
+
 	// Transparent bg setup
 	HWND hwnd = static_cast<HWND>(window.getNativeHandle());
 
@@ -72,7 +79,7 @@ int main() {
 	bool wasClickThrough = false;
 
 	// State management
-	Timer timerstate(font, clockTexture, settingsTexture, hideTexture, moveTexture ,settingsData, startTexture, resetTexture);
+	Timer timerstate(font, clockTexture, settingsTexture, hideTexture, moveTexture ,settingsData, startTexture, resetTexture, alarmSound);
 	Settings settingsstate(font, clockTexture, settingsTexture, hideTexture, moveTexture, settingsData);
 
 	State* currentState = &timerstate;
