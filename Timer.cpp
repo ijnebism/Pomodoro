@@ -82,33 +82,6 @@ void Timer::update(float dt, sf::RenderWindow& window) {
 	else {
 		wasDragging = false;
 	}
-
-	if (startButton.getActive()) {
-		accumulatedTime += dt;
-
-		if (accumulatedTime >= 1.f) {
-			accumulatedTime -= 1.f;
-			secondsRemaining -= 1;
-
-			time.setString(std::to_string(secondsRemaining / 60) + ":" +
-				(secondsRemaining % 60 < 10 ? "0" : "") + std::to_string(secondsRemaining % 60));
-
-			if (secondsRemaining <= 0) {
-				alarmSound.setVolume(settingsData.audioVolume);
-				alarmSound.play();
-				switchPhase();
-				if (settingsData.autoStartWork && currentPhase == TimerPhase::Work) {
-					startButton.setActive(true);
-				}
-				else if (settingsData.autoStartBreak && currentPhase == TimerPhase::Break) {
-					startButton.setActive(true);
-				}
-				else {
-					startButton.setActive(false);
-				}
-			}
-		}
-	}
 }
 
 void Timer::resetState() {
@@ -118,6 +91,34 @@ void Timer::resetState() {
 	status.setString("Work");
 	time.setString(std::to_string(secondsRemaining / 60) + ":" +
 		(secondsRemaining % 60 < 10 ? "0" : "") + std::to_string(secondsRemaining % 60));
+}
+
+void Timer::updateTimer(float dt) {
+	if (!startButton.getActive()) {
+		return;
+	}
+
+	accumulatedTime += dt;
+	if (accumulatedTime >= 1.f) {
+		accumulatedTime -= 1.f;
+		secondsRemaining -= 1;
+		time.setString(std::to_string(secondsRemaining / 60) + ":" +
+			(secondsRemaining % 60 < 10 ? "0" : "") + std::to_string(secondsRemaining % 60));
+		if (secondsRemaining <= 0) {
+			alarmSound.setVolume(settingsData.audioVolume);
+			alarmSound.play();
+			switchPhase();
+			if (settingsData.autoStartWork && currentPhase == TimerPhase::Work) {
+				startButton.setActive(true);
+			}
+			else if (settingsData.autoStartBreak && currentPhase == TimerPhase::Break) {
+				startButton.setActive(true);
+			}
+			else {
+				startButton.setActive(false);
+			}
+		}
+	}
 }
 
 void Timer::updateSettings(const SettingsData& newSettings) {

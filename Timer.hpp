@@ -20,6 +20,7 @@ public:
 
 	bool isMouseOverUI(const sf::Vector2i& mousePos) const override;
 
+	void updateTimer(float dt);
     void updateSettings(const SettingsData& newSettings);
 
 private:

@@ -104,6 +104,8 @@ int main() {
 				break;
 			}
 		}
+		float dt = clock.restart().asSeconds();
+		timerstate.updateTimer(dt);
 
 
 		currentState->handleInput(window);
