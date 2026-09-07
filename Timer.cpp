@@ -119,6 +119,14 @@ void Timer::resetState() {
 		(secondsRemaining % 60 < 10 ? "0" : "") + std::to_string(secondsRemaining % 60));
 }
 
+void Timer::updateSettings(const SettingsData& newSettings) {
+	settingsData.workDuration = newSettings.workDuration;
+	settingsData.breakDuration = newSettings.breakDuration;
+	settingsData.autoStartWork = newSettings.autoStartWork;
+	settingsData.autoStartBreak = newSettings.autoStartBreak;
+	settingsData.audioVolume = newSettings.audioVolume;
+}
+
 void Timer::switchPhase() {
 	if (currentPhase == TimerPhase::Work) {
 		currentPhase = TimerPhase::Break;

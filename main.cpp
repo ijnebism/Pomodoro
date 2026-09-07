@@ -85,6 +85,7 @@ int main() {
 			case StateType::Timer:
 				window.setSize(sf::Vector2u(230, 200));
 				window.setView(sf::View(sf::FloatRect({ 0, 0 }, {230, 200})));
+				timerstate.updateSettings(settingsstate.getSettings());
 				currentState = &timerstate;
 				break;
 			case StateType::Settings:

@@ -162,6 +162,10 @@ void Settings::render(sf::RenderWindow& window) {
 	window.display();
 }
 
+const SettingsData& Settings::getSettings() const {
+	return settingsData;
+}
+
 bool Settings::isMouseOverUI(const sf::Vector2i& mousePos) const {
 	return settingsButton.isHovered() || timerButton.isHovered() || hideButton.isHovered() || moveButton.isHovered() || 
 		workduration.isHovered(mousePos) || breakduration.isHovered(mousePos) || workToggle.isHovered() || breakToggle.isHovered() ||

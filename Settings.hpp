@@ -14,6 +14,8 @@ public:
     void update(float dt, sf::RenderWindow& window) override;
     void render(sf::RenderWindow& window) override;
 
+    const SettingsData& getSettings() const;
+
     bool isMouseOverUI(const sf::Vector2i& mousePos) const override;
 
 private:
