@@ -12,6 +12,10 @@ A lightweight, always-on-top desktop Pomodoro timer built with C++ and SFML, fea
 ## Overview
 Pomodoro is a minimal desktop widget that sits on top of your other windows and helps you run work/break cycles using the Pomodoro technique. It's built as a frameless, transparent overlay that only intercepts mouse clicks over its own UI, so it stays out of your way otherwise. It includes a Timer screen for running the countdown and a Settings screen for configuring work/break durations, autostart behavior, and alert volume.
 
+<p align="center">
+  <img src="assets/image.png" width="500" />
+</p>
+
 ## TechStack
 <p align="center"> <img src=https://skillicons.dev/icons?i=cpp,cmake /> </p>
 
