@@ -170,5 +170,8 @@ void Timer::render(sf::RenderWindow& window) {
 }
 
 bool Timer::isMouseOverUI(const sf::Vector2i& mousePos) const {
+	if (hideButton.getActive()) {
+		return hideButton.isHovered();
+	}
 	return settingsButton.isHovered() || timerButton.isHovered() || hideButton.isHovered() || moveButton.isHovered() || startButton.isHovered() || resetButton.isHovered();
 }

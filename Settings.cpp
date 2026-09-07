@@ -167,6 +167,9 @@ const SettingsData& Settings::getSettings() const {
 }
 
 bool Settings::isMouseOverUI(const sf::Vector2i& mousePos) const {
+	if (hideButton.getActive()) {
+		return hideButton.isHovered();
+	}
 	return settingsButton.isHovered() || timerButton.isHovered() || hideButton.isHovered() || moveButton.isHovered() || 
 		workduration.isHovered(mousePos) || breakduration.isHovered(mousePos) || workToggle.isHovered() || breakToggle.isHovered() ||
 		audioSlider.isHovered(mousePos);
