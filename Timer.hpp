@@ -6,7 +6,7 @@
 
 class Timer : public State {
 public:
-    Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture, const SettingsData& settingsData);
+    Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture, const SettingsData& settingsData, const sf::Texture& startTexture, const sf::Texture& resetTexture);
 
     void handleInput(sf::RenderWindow& window) override;
     void update(float dt, sf::RenderWindow& window) override;
@@ -16,10 +16,17 @@ public:
 
 private:
     sf::Text time;
+    sf::Text status;
     Button settingsButton;
 	Button timerButton;
 	Button hideButton;
 	Button moveButton;
+    Button startButton;
+	Button resetButton;
+
+    int secondsRemaining;
+    float accumulatedTime = 0.f;
+    void resetState();
 
     bool wasDragging = false;
     sf::Vector2i dragStartScreenPos;

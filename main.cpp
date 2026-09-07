@@ -16,6 +16,8 @@ int main() {
 	sf::Texture settingsTexture;
 	sf::Texture hideTexture;
 	sf::Texture moveTexture;
+	sf::Texture startTexture;
+	sf::Texture resetTexture;
 
 	SettingsData settingsData;
 	settingsData.loadFromFile();
@@ -41,6 +43,14 @@ int main() {
 		return -1;
 	}
 
+	if (!startTexture.loadFromFile("./assets/play.png")) {
+		return -1;
+	}
+
+	if (!resetTexture.loadFromFile("./assets/reset.png")) {
+		return -1;
+	}
+
 	// Transparent bg setup
 	HWND hwnd = static_cast<HWND>(window.getNativeHandle());
 
@@ -62,7 +72,7 @@ int main() {
 	bool wasClickThrough = false;
 
 	// State management
-	Timer timerstate(font, clockTexture, settingsTexture, hideTexture, moveTexture ,settingsData);
+	Timer timerstate(font, clockTexture, settingsTexture, hideTexture, moveTexture ,settingsData, startTexture, resetTexture);
 	Settings settingsstate(font, clockTexture, settingsTexture, hideTexture, moveTexture, settingsData);
 
 	State* currentState = &timerstate;
