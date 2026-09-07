@@ -6,8 +6,7 @@ A lightweight, always-on-top desktop Pomodoro timer built with C++ and SFML, fea
 - [Overview](#overview)
 - [TechStack](#techstack)
 - [Features](#features)
-- [Requirements](#requirements)
-    - [Installation](#installation)
+- [Download](#download)
 - [Attributions](#attributions)
 
 ## Overview
@@ -25,24 +24,8 @@ Pomodoro is a minimal desktop widget that sits on top of your other windows and 
 - **Draggable UI**: Move the widget anywhere on screen via a dedicated move handle.
 - **Hide Toggle**: Collapse the widget down to a minimal state when you don't need the full UI visible.
 
-## Requirements
-- A C++ compiler with C++17 (or later) support
-- [SFML 3](https://www.sfml-dev.org/)
-- CMake (or your preferred build system configured to link `sfml-graphics`, `sfml-window`, `sfml-system`, and `sfml-audio`)
-- Windows (the overlay/transparency and click-through behavior rely on the Win32 API and `dwmapi.lib`)
-### Installation
-1. Clone the repository:
-```bash
-    git clone https://github.com/yourusername/pomodoro.git
-    cd pomodoro
-```
-2. Make sure SFML 3 is installed and discoverable by your build system (via `find_package(SFML ...)` or your linker's library paths).
-3. Configure and build:
-```bash
-    cmake -B build
-    cmake --build build
-```
-4. Run the executable from the build output directory. The app will appear as a small overlay in the top-right corner of your screen.
+## Download
+Grab the latest build from the [Releases page](https://github.com/ijnebism/Pomodoro/releases/tag/v1.0.0), unzip, and run `Pomodoro.exe`.
 
 ## Attributions
 Icons used in this app are from [Flaticon](https://www.flaticon.com):
