@@ -88,7 +88,7 @@ void Timer::resetState() {
 	startButton.setActive(false);
 	secondsRemaining = settingsData.workDuration * 60;
 	currentPhase = TimerPhase::Work;
-	status.setString("Work");
+	status.setString("Pomodoro");
 	time.setString(std::to_string(secondsRemaining / 60) + ":" +
 		(secondsRemaining % 60 < 10 ? "0" : "") + std::to_string(secondsRemaining % 60));
 }
