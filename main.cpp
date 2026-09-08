@@ -11,6 +11,7 @@
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode({230, 200}), "Pomodoro", sf::Style::None);
+	window.setFramerateLimit(30);
 	sf::Clock clock;
 	sf::Font font;
 	sf::Texture clockTexture;
