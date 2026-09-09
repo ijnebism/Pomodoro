@@ -5,6 +5,7 @@
 #include "Timer.hpp"
 #include "Settings.hpp"
 #include "SettingsData.hpp"
+#include "Path.hpp"
 
 #pragma comment(lib, "dwmapi.lib")
 
@@ -25,36 +26,38 @@ int main() {
 	SettingsData settingsData;
 	settingsData.loadFromFile();
 
+	std::filesystem::path assetsDir = getExecutablePath() / "assets";
+
 	// Load assets
-	if (!font.openFromFile("./assets/ArchivoBlack-Regular.ttf")) {
+	if (!font.openFromFile(assetsDir / "ArchivoBlack-Regular.ttf")) {
 		return -1;
 	}
 
-	if (!clockTexture.loadFromFile("./assets/clock.png")) {
+	if (!clockTexture.loadFromFile(assetsDir / "clock.png")) {
 		return -1;
 	}
 
-	if (!settingsTexture.loadFromFile("./assets/settings.png")) {
+	if (!settingsTexture.loadFromFile(assetsDir / "settings.png")) {
 		return -1;
 	}
 
-	if (!hideTexture.loadFromFile("./assets/hidden.png")) {
+	if (!hideTexture.loadFromFile(assetsDir / "hidden.png")) {
 		return -1;
 	}
 
-	if (!moveTexture.loadFromFile("./assets/move.png")) {
+	if (!moveTexture.loadFromFile(assetsDir / "move.png")) {
 		return -1;
 	}
 
-	if (!startTexture.loadFromFile("./assets/play.png")) {
+	if (!startTexture.loadFromFile(assetsDir / "play.png")) {
 		return -1;
 	}
 
-	if (!resetTexture.loadFromFile("./assets/reset.png")) {
+	if (!resetTexture.loadFromFile(assetsDir / "reset.png")) {
 		return -1;
 	}
 
-	if (!alarmBuffer.loadFromFile("./assets/alarm.wav")) {
+	if (!alarmBuffer.loadFromFile(assetsDir / "alarm.wav")) {
 		return -1;
 	}
 	sf::Sound alarmSound(alarmBuffer);

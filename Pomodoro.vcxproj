@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="Path.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Settings.hpp" />
     <ClInclude Include="SettingsData.hpp" />

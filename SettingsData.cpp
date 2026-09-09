@@ -1,9 +1,10 @@
 #include "SettingsData.hpp"
+#include "Path.hpp"
 #include <fstream>
 #include <sstream>
 
 void SettingsData::loadFromFile() {
-	std::ifstream file(filename);
+	std::ifstream file(getExecutablePath() / filename);
 	if (!file.is_open()) {
 		return;
 	}
@@ -25,7 +26,7 @@ void SettingsData::loadFromFile() {
 }
 
 void  SettingsData::saveToFile() const {
-	std::ofstream file(filename);
+	std::ofstream file(getExecutablePath() / filename);
 	if (!file.is_open()) {
 		return;
 	}
