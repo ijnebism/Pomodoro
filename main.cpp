@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <dwmapi.h>
+#include <shobjidl.h>
 #include "State.hpp"
 #include "Timer.hpp"
 #include "Settings.hpp"
@@ -13,6 +14,7 @@
 int main() {
 	sf::RenderWindow window(sf::VideoMode({230, 200}), "Pomodoro", sf::Style::None);
 	window.setFramerateLimit(30);
+	//window.setVisible(false);
 	sf::Clock clock;
 	sf::Font font;
 	sf::Texture clockTexture;
@@ -65,15 +67,22 @@ int main() {
 	// Transparent bg setup
 	HWND hwnd = static_cast<HWND>(window.getNativeHandle());
 
+	ShowWindow(hwnd, SW_HIDE);
+
 	SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_CAPTION);
 	LONG exStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-	SetWindowLong(hwnd, GWL_EXSTYLE, exStyle | WS_EX_LAYERED);
+
+	exStyle |= WS_EX_LAYERED | WS_EX_TOOLWINDOW; 
+	exStyle &= ~WS_EX_APPWINDOW;
+
+	SetWindowLong(hwnd, GWL_EXSTYLE, exStyle);
+	SetLayeredWindowAttributes(hwnd, 0, 255, LWA_ALPHA);
 
 	MARGINS margins = { -1 };
 	DwmExtendFrameIntoClientArea(hwnd, &margins);
 
 	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-
+	ShowWindow(hwnd, SW_SHOW);
 
 	sf::Vector2u desktopSize = sf::VideoMode::getDesktopMode().size;
 
