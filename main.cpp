@@ -10,11 +10,35 @@
 
 #pragma comment(lib, "dwmapi.lib")
 
+HWND globalHwnd = nullptr; 
+bool globalQuitRequest = false; 
+
 LRESULT CALLBACK TrayProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	if (msg == WM_APP + 1) {
 		if (lParam == WM_LBUTTONUP) {
-			MessageBeep(MB_OK);
+			ShowWindow(globalHwnd, SW_SHOW);
+		}
+		else if (lParam == WM_RBUTTONUP) {
+			HMENU menu = CreatePopupMenu();
+			AppendMenuW(menu, MF_STRING, 1, L"Hide");
+			AppendMenuW(menu, MF_STRING, 1, L"Close");
+
+			POINT point;
+			GetCursorPos(&point);
+
+			SetForegroundWindow(hwnd);
+
+			int cmd = TrackPopupMenu(menu, TPM_RETURNCMD | TPM_NONOTIFY, point.x, point.y, 0, hwnd, nullptr);
+
+			if (cmd == 1) {
+				ShowWindow(globalHwnd, SW_HIDE);
+			}
+			else if(cmd ==2) {
+				globalQuitRequest = true;
+			}
+
+			DestroyMenu(menu);
 		}
 		return 0;
 	}
@@ -38,7 +62,6 @@ HWND createTrayWindow()
 int main() {
 	sf::RenderWindow window(sf::VideoMode({230, 200}), "Pomodoro", sf::Style::None);
 	window.setFramerateLimit(30);
-	//window.setVisible(false);
 	sf::Clock clock;
 	sf::Font font;
 	sf::Texture clockTexture;
@@ -90,7 +113,7 @@ int main() {
 
 	// Transparent bg setup
 	HWND hwnd = static_cast<HWND>(window.getNativeHandle());
-
+	globalHwnd = hwnd;
 	ShowWindow(hwnd, SW_HIDE);
 
 	SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_CAPTION);
@@ -136,7 +159,7 @@ int main() {
 
 	Shell_NotifyIcon(NIM_ADD, &nid);
 
-	while (window.isOpen()) {
+	while (window.isOpen() && !globalQuitRequest) {
 		if (currentState->getNextState() != StateType::None) {
 			StateType nextState = currentState->getNextState();
 			currentState->resetNextState();
@@ -179,4 +202,5 @@ int main() {
 
 		currentState->render(window);
 	}
+	Shell_NotifyIconW(NIM_DELETE, &nid);
 }
