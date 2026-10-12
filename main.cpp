@@ -7,6 +7,7 @@
 #include "Settings.hpp"
 #include "SettingsData.hpp"
 #include "Path.hpp"
+#include "resource.h"
 
 #pragma comment(lib, "dwmapi.lib")
 
@@ -153,7 +154,7 @@ int main() {
 	nid.uID = 101;
 
 	nid.uCallbackMessage = WM_APP + 1;
-	nid.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+	nid.hIcon = LoadIcon(GetModuleHandleW(nullptr), MAKEINTRESOURCE(IDI_ICON1));
 	wcscpy_s(nid.szTip, L"Pomodoro");
 	nid.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
 
