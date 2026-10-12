@@ -10,6 +10,30 @@
 
 #pragma comment(lib, "dwmapi.lib")
 
+LRESULT CALLBACK TrayProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	if (msg == WM_APP + 1) {
+		if (lParam == WM_LBUTTONUP) {
+			MessageBeep(MB_OK);
+		}
+		return 0;
+	}
+	return DefWindowProcW(hwnd, msg, wParam, lParam);
+}
+
+HWND createTrayWindow()
+{
+	WNDCLASSW wc{};
+	wc.lpfnWndProc = TrayProc;             
+	wc.hInstance = GetModuleHandleW(nullptr);
+	wc.lpszClassName = L"PomodoroTray";
+	RegisterClassW(&wc);
+
+	return CreateWindowExW(0, L"PomodoroTray", L"", 0,
+		0, 0, 0, 0,
+		HWND_MESSAGE,
+		nullptr, wc.hInstance, nullptr);
+}
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode({230, 200}), "Pomodoro", sf::Style::None);
@@ -96,6 +120,21 @@ int main() {
 	Settings settingsstate(font, clockTexture, settingsTexture, hideTexture, moveTexture, settingsData);
 
 	State* currentState = &timerstate;
+
+	HWND trayHwnd = createTrayWindow();
+
+	NOTIFYICONDATAW nid{};
+
+	nid.cbSize = sizeof(nid);
+	nid.hWnd = trayHwnd;
+	nid.uID = 101;
+
+	nid.uCallbackMessage = WM_APP + 1;
+	nid.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+	wcscpy_s(nid.szTip, L"Pomodoro");
+	nid.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
+
+	Shell_NotifyIcon(NIM_ADD, &nid);
 
 	while (window.isOpen()) {
 		if (currentState->getNextState() != StateType::None) {
