@@ -42,6 +42,9 @@
     <ClCompile Include="SettingsData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="State.hpp">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Path.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
