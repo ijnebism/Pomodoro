@@ -1,5 +1,4 @@
 #include "Timer.hpp"
-#include <iostream>
 
 Timer::Timer(const sf::Font& font, const sf::Texture& clockTexture, const sf::Texture& settingsTexture, const sf::Texture& hideTexture, const sf::Texture& moveTexture, const SettingsData& settingsData, const sf::Texture& startTexture, const sf::Texture& resetTexture, const sf::Sound& alarmSound) :
 time(font),
@@ -164,8 +163,5 @@ void Timer::render(sf::RenderWindow& window) {
 }
 
 bool Timer::isMouseOverUI(const sf::Vector2i& mousePos) const {
-	if (hideButton.getActive()) {
-		return hideButton.isHovered();
-	}
 	return settingsButton.isHovered() || timerButton.isHovered() || hideButton.isHovered() || moveButton.isHovered() || startButton.isHovered() || resetButton.isHovered();
 }
