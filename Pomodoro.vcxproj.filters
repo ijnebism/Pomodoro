@@ -45,6 +45,9 @@
     <ClCompile Include="Tray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Statistics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="State.hpp">
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

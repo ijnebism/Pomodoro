@@ -4,7 +4,8 @@
 enum class StateType {
 	None,
 	Timer,
-	Settings
+	Settings,
+	Statistics
 };
 
 class State {
