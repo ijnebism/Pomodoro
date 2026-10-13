@@ -11,6 +11,8 @@
 
 #pragma comment(lib, "dwmapi.lib")
 
+HWND globalHwnd = nullptr;
+
 int main() {
 	sf::RenderWindow window(sf::VideoMode({230, 200}), "Pomodoro", sf::Style::None);
 	window.setFramerateLimit(30);
@@ -66,6 +68,7 @@ int main() {
 	// Transparent bg setup
 	HWND hwnd = static_cast<HWND>(window.getNativeHandle());
 	Tray tray(hwnd);
+	globalHwnd = hwnd;
 	ShowWindow(hwnd, SW_HIDE);
 
 	SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_CAPTION);

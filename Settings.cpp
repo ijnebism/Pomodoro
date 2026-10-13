@@ -81,7 +81,7 @@ void Settings::handleInput(sf::RenderWindow& window) {
 			nextState = StateType::Timer;
 		}
 		if (hideButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
-			hideButton.toggleActive();
+			window.setVisible(false);
 		}
 
 		if (breakToggle.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
@@ -139,26 +139,24 @@ void Settings::render(sf::RenderWindow& window) {
 	sf::Vector2u windowSize = window.getSize();
 	window.clear(sf::Color::Transparent);
 
-	if (!hideButton.getActive()) {
-		settingsButton.render(window);
-		timerButton.render(window);
-		moveButton.render(window);
-		workduration.render(window);
-		breakduration.render(window);
-		window.draw(workLabel);
-		window.draw(breakLabel);
-		window.draw(workToggleLabel);
-		window.draw(breakToggleLabel);
-		workToggle.render(window);
-		breakToggle.render(window);
-		window.draw(workToggleLabel);
-		window.draw(breakToggleLabel);
-		window.draw(audioLabel);
-		window.draw(volumeLabel);
-		audioSlider.render(window);
-	}
-
+	settingsButton.render(window);
+	timerButton.render(window);
+	moveButton.render(window);
+	workduration.render(window);
+	breakduration.render(window);
+	window.draw(workLabel);
+	window.draw(breakLabel);
+	window.draw(workToggleLabel);
+	window.draw(breakToggleLabel);
+	workToggle.render(window);
+	breakToggle.render(window);
+	window.draw(workToggleLabel);
+	window.draw(breakToggleLabel);
+	window.draw(audioLabel);
+	window.draw(volumeLabel);
+	audioSlider.render(window);
 	hideButton.render(window);
+
 	window.display();
 }
 

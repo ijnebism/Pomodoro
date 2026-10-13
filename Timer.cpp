@@ -45,7 +45,7 @@ void Timer::handleInput(sf::RenderWindow& window) {
 
 		}
 		if (hideButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
-			hideButton.toggleActive();
+			window.setVisible(false);
 		}
 		if (startButton.isClicked(mousePos, sf::Mouse::Button::Left, *event)) {
 			startButton.toggleActive();
@@ -148,23 +148,17 @@ void Timer::render(sf::RenderWindow& window) {
 	sf::Vector2u windowSize = window.getSize();
 	window.clear(sf::Color::Transparent);
 
-
-	if (!hideButton.getActive()) {
-
-		time.setOrigin({ time.getLocalBounds().size.x / 2.f, time.getLocalBounds().size.y / 2.f });
-		status.setOrigin({ status.getLocalBounds().size.x / 2.f, status.getLocalBounds().size.y / 2.f });
-		time.setPosition({windowSize.x / 2.f, 70});
-		status.setPosition({windowSize.x / 2.f, 48});
-		window.draw(time);
-		window.draw(status);
-		settingsButton.render(window);
-		timerButton.render(window);
-		moveButton.render(window);
-		startButton.render(window);
-		resetButton.render(window);
-
-	}
-	
+	time.setOrigin({ time.getLocalBounds().size.x / 2.f, time.getLocalBounds().size.y / 2.f });
+	status.setOrigin({ status.getLocalBounds().size.x / 2.f, status.getLocalBounds().size.y / 2.f });
+	time.setPosition({windowSize.x / 2.f, 70});
+	status.setPosition({windowSize.x / 2.f, 48});
+	window.draw(time);
+	window.draw(status);
+	settingsButton.render(window);
+	timerButton.render(window);
+	moveButton.render(window);
+	startButton.render(window);
+	resetButton.render(window);
 	hideButton.render(window);
 	window.display();
 }
